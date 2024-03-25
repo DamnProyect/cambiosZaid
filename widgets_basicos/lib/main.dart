@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_basicos/products.dart';
+import 'package:widgets_basicos/screens/homeScreenGrid.dart';
 import 'package:widgets_basicos/variables.dart';
 
 void main() {
@@ -38,8 +39,7 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.lightBlue[800],
           title: Text("Bienvenido"),
         ),
-        body: Container(
-            margin: EdgeInsets.only(top: 30), child: const HomeScreenGrid()),
+        body: const HomeScreenGrid(),
 
         //Linea del bottom navigation var
         bottomNavigationBar: BottomNavigationBar(
@@ -53,20 +53,6 @@ class _MyAppState extends State<MyApp> {
           onTap: indexChange,
         ),
       ),
-    );
-  }
-}
-
-class HomeScreenGrid extends StatelessWidget {
-  const HomeScreenGrid({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      children: listadoProductos,
     );
   }
 }
