@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_basicos/products.dart';
+import 'package:widgets_basicos/variables.dart';
 
 void main() {
   runApp(const MyApp());
+  CargarDatos();
 }
 
 class MyApp extends StatefulWidget {
@@ -13,7 +16,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
-  List<Widget> ListadoDeWidgets = <Widget>[Text("Pagina 1"), Text("Pagina 2")];
 
   void indexChange(int valor) {
     setState(() {
@@ -25,11 +27,21 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //Temas de la aplicacion, texto, colores etc
+      theme: ThemeData(
+        //Texto de la app
+        fontFamily: 'Georgia',
+      ),
       home: Scaffold(
+        //AppBar
         appBar: AppBar(
-          title: Text("Hola"),
+          backgroundColor: Colors.lightBlue[800],
+          title: Text("Bienvenido"),
         ),
-        body: Center(child: ListadoDeWidgets.elementAt(currentIndex)),
+        body: Container(
+            margin: EdgeInsets.only(top: 30), child: const HomeScreenGrid()),
+
+        //Linea del bottom navigation var
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
@@ -41,6 +53,20 @@ class _MyAppState extends State<MyApp> {
           onTap: indexChange,
         ),
       ),
+    );
+  }
+}
+
+class HomeScreenGrid extends StatelessWidget {
+  const HomeScreenGrid({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      children: listadoProductos,
     );
   }
 }
