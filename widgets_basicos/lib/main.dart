@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:widgets_basicos/products.dart';
 import 'package:widgets_basicos/screens/homeScreenGrid.dart';
+import 'package:widgets_basicos/screens/login.dart';
 import 'package:widgets_basicos/variables.dart';
 
 void main() {
@@ -24,6 +27,31 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeName(String valor) {
+    setState(() {
+      texto = valor;
+    });
+  }
+
+  bool moverALogin() {
+    return login = false;
+  }
+
+  bool verificarPassword(String password, String user) {
+    if (pass == "123" && usuario == "zaid") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool login = false;
+  final textControlerUsuario = TextEditingController();
+  final textControlerPass = TextEditingController();
+  String texto = "Bienvenido";
+  String pass = "";
+  String usuario = "";
+  bool mostarFloating = false;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,21 +64,38 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         //AppBar
         appBar: AppBar(
-          backgroundColor: Colors.lightBlue[800],
-          title: Text("Bienvenido"),
-        ),
-        body: const HomeScreenGrid(),
-
-        //Linea del bottom navigation var
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart), label: "Carrito")
+          actions: [
+            //Icono que manda al logIN
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  login = true;
+                });
+              },
+              icon: const Icon(Icons.person),
+            )
           ],
-          currentIndex: currentIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: indexChange,
+          backgroundColor: Colors.lightBlue[800],
+          title: Text(texto),
+        ),
+        body: [HomeScreenGrid(), LoginPage(), Container()][currentIndex],
+
+        bottomNavigationBar: NavigationBar(
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
+            NavigationDestination(icon: Icon(Icons.person), label: "Login"),
+            NavigationDestination(
+              icon: Icon(Icons.shopping_cart),
+              label: "Carrito",
+            ),
+          ],
+          selectedIndex: currentIndex,
+          indicatorColor: Colors.red,
+          onDestinationSelected: (value) {
+            setState(() {
+              currentIndex = value;
+            });
+          },
         ),
       ),
     );
