@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:widgets_basicos/products.dart';
 
 List<ProductWidget> listadoProductos = [];

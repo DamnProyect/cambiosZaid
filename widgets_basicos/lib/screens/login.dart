@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_basicos/screens/Home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,18 +11,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   int currentIndex = 0;
 
-  void indexChange(int valor) {
-    setState(() {
-      currentIndex = valor;
-    });
-  }
-
-  void changeName(String valor) {
-    setState(() {
-      texto = valor;
-    });
-  }
-
   bool verificarPassword(String password, String user) {
     if (pass == "123" && usuario == "zaid") {
       return true;
@@ -30,92 +19,96 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // Guardan el contenido del textField
   final textControlerUsuario = TextEditingController();
   final textControlerPass = TextEditingController();
-  String texto = "Bienvenido";
+
   String pass = "";
   String usuario = "";
+  String saludo = "";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:
-            //const HomeScreenGrid(),
-            Center(
+        appBar: AppBar(
+          backgroundColor: Colors.green[200],
+          title: const Text("Login page"),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
+        ),
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black26,
-                    width: 8,
-                  ),
-                ),
                 child: TextField(
+                  //TextFiel usuario
                   controller: textControlerUsuario,
                   autofocus: false,
-                  onSubmitted: (value) {
-                    usuario = textControlerUsuario.text;
-                    pass = textControlerPass.text;
-                  },
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.person),
+                  decoration: InputDecoration(
+                      icon: const Icon(Icons.person),
                       hintText: "Escribe algo",
-                      fillColor: Colors.yellow,
-                      focusColor: Colors.blue),
+                      fillColor: Colors.grey.shade300,
+                      focusColor: Colors.blue,
+                      border: InputBorder.none,
+                      filled: true),
                   cursorColor: Colors.indigoAccent,
                 ),
               ),
-              Container(
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                //TextField del password
                 width: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black26,
-                    width: 8,
-                  ),
-                ),
                 child: TextField(
                   controller: textControlerPass,
                   autofocus: false,
-                  onSubmitted: (value) {
-                    pass = textControlerPass.text;
-                  },
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.password),
+                  decoration: InputDecoration(
+                      icon: const Icon(Icons.password),
                       hintText: "Contraseña",
-                      fillColor: Colors.yellow,
-                      focusColor: Colors.blue),
+                      fillColor: Colors.grey.shade300,
+                      border: InputBorder.none,
+                      focusColor: Colors.blue,
+                      filled: true),
                   cursorColor: Colors.indigoAccent,
                 ),
               ),
             ],
           ),
         ),
-
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (verificarPassword(pass, usuario) == true) {
-              changeName("Login correcto");
-              textControlerUsuario.clear();
-              textControlerPass.clear();
+            Navigator.of(context).pop();
+
+            //Limpia los campos
+            textControlerUsuario.clear();
+            textControlerPass.clear();
+
+            /*   if (verificarPassword(pass, usuario) == true) {
+              
             } else {
-              changeName("Login erroneo");
               textControlerUsuario.clear();
               textControlerPass.clear();
             }
             print("***********************************************");
 
             print(usuario);
-            print(pass);
+            print(pass); */
           },
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
+          child: const Icon(
+            Icons.send,
+            color: Colors.white,
+          ),
         ),
-        //Linea del bottom navigation var
       ),
     );
   }
