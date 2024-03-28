@@ -21,30 +21,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
 
-  void indexChange(int valor) {
-    setState(() {
-      currentIndex = valor;
-    });
-  }
-
-  void changeName(String valor) {
-    setState(() {
-      texto = valor;
-    });
-  }
-
-  bool moverALogin() {
-    return login = false;
-  }
-
-  bool verificarPassword(String password, String user) {
-    if (pass == "123" && usuario == "zaid") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   bool login = false;
   final textControlerUsuario = TextEditingController();
   final textControlerPass = TextEditingController();
