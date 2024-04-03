@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:widgets_basicos/main.dart';
 import 'package:widgets_basicos/screens/carrito.dart';
 import 'package:widgets_basicos/screens/homeScreenGrid.dart';
 import 'package:widgets_basicos/screens/login.dart';
 
 class HomePage extends StatefulWidget {
-  //Declaro que le pasare el usuario
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -14,7 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Index con el que comienza el bottombar
   int currentIndex = 0;
-  String saludo = "Bienvenido";
+  String saludo = "Bienvenido ";
+  //Si el login es correcto muestra el widget, si no. muestra
+  bool loginCorrecto = false;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
         backgroundColor: Colors.lightBlue[800],
-        title: Text(saludo),
+        title: Text(saludo + context.watch<ModeloUsuario>().nombre),
         foregroundColor: Colors.white,
       ),
       body: [

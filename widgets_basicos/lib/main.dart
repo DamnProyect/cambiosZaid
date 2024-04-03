@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets_basicos/screens/Home_page.dart';
 import 'package:widgets_basicos/variables.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    //Implemento el notificador de estado
+    ChangeNotifierProvider(
+      create: (context) => ModeloUsuario(),
+      child: const MyApp(),
+    ),
+  );
   CargarDatos();
 }
 
@@ -27,5 +34,17 @@ class _MyAppState extends State<MyApp> {
       //La propiedad home es el inicio de la app, desde alli ya se manejan los demas widget que la componen
       home: HomePage(),
     );
+  }
+}
+
+//Creo el modelo donde se guardan los metodos y las variables que pueden cambiar
+class ModeloUsuario extends ChangeNotifier {
+  String _nombre = "";
+
+  String get nombre => _nombre;
+
+  void cambiarNombre(String nombreNuevo) {
+    _nombre = nombreNuevo;
+    notifyListeners();
   }
 }
