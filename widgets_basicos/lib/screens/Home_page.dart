@@ -15,8 +15,6 @@ class _HomePageState extends State<HomePage> {
   //Index con el que comienza el bottombar
   int currentIndex = 0;
   String saludo = "Bienvenido ";
-  //Si el login es correcto muestra el widget, si no. muestra
-  bool loginCorrecto = false;
 
   // This widget is the root of your application.
   @override

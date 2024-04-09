@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_basicos/screens/login.dart';
 
 class ProductWidget extends StatelessWidget {
   final String nombre;
@@ -9,10 +10,21 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Container(
-        color: Colors.amber,
-        height: 100,
-        width: 100,
+      ElevatedButton(
+        child: Container(
+          color: Colors.amber,
+          height: 100,
+          width: 100,
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return const LoginPage();
+              },
+            ),
+          );
+        },
       ),
       SizedBox(
         height: 10,
