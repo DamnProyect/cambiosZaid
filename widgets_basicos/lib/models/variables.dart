@@ -1,4 +1,4 @@
-import 'package:widgets_basicos/products.dart';
+import 'package:widgets_basicos/widgets/products.dart';
 
 List<ProductWidget> listadoProductos = [];
 
@@ -30,9 +30,4 @@ void CargarDatos() {
     listadoProductos
         .add(ProductWidget(nombre: listadoNombre[i], precio: i + 10));
   }
-
-  listadoProductos.add(ProductWidget(
-    nombre: "Queso",
-    precio: 999,
-  ));
 }

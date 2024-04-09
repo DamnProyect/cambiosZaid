@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/screens/Home_page.dart';
-import 'package:widgets_basicos/variables.dart';
+import 'package:widgets_basicos/models/variables.dart';
 
 void main() {
   runApp(

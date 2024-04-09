@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/main.dart';
 import 'package:widgets_basicos/screens/carrito.dart';
 import 'package:widgets_basicos/screens/homeScreenGrid.dart';
-import 'package:widgets_basicos/screens/login.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,26 +22,31 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       //AppBar
       appBar: AppBar(
+        toolbarHeight: 90,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.menu),
+        ),
         actions: [
           //Icono que manda al logIn
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const LoginPage();
-                  },
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.person,
-              color: Colors.white,
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            width: 40,
+            height: 40,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
             ),
+            child: const Icon(Icons.person),
           )
         ],
-        backgroundColor: Colors.lightBlue[800],
-        title: Text(saludo + context.watch<ModeloUsuario>().nombre),
+        backgroundColor: Colors.black,
+        title: Text(
+          saludo + context.watch<ModeloUsuario>().nombre,
+          style: GoogleFonts.playfairDisplay(
+              fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         foregroundColor: Colors.white,
       ),
       body: [
