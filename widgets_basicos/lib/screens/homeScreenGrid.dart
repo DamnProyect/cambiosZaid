@@ -34,30 +34,16 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
               itemCount: 5,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 24,
+                mainAxisSpacing: 13,
                 crossAxisSpacing: 13,
+                //Extiende el largo de los elementos del grid
+                mainAxisExtent: 220,
               ),
               itemBuilder: (context, index) {
-                /* return Container(
-                  color: Colors.red,
-                ); */
                 return listadoProductos[index];
               },
             ),
           )
-
-          /* Container(
-            margin: const EdgeInsets.only(top: 30),
-            child: GridView.count(
-              //Espacio entre los elementos del grid
-              crossAxisSpacing: 0.0,
-              mainAxisSpacing: 0.0,
-              //Indico el numero de filas
-              crossAxisCount: 2,
-              //Le paso el listado de productos al grid
-              children: listadoProductos,
-            ),
-          ), */
         ],
       ),
     );

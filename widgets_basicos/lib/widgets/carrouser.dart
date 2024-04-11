@@ -71,7 +71,7 @@ class _MiCarruselState extends State<MiCarrusel> {
             //Positioned(child: child)
           ],
         ),
-        SizedBox(height: 32),
+        SizedBox(height: 5),
         buildIndicator(),
       ],
     );

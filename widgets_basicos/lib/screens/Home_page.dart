@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       //AppBar
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 70,
         elevation: 0,
         leading: IconButton(
           onPressed: () {},
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         selectedIndex: currentIndex,
-        indicatorColor: Colors.red,
+        indicatorColor: Colors.grey[400],
         onDestinationSelected: (value) {
           //Hace el cambio del contenido, modificando el estado.
           setState(() {

@@ -27,7 +27,10 @@ List<String> listadoNombre = [
 
 void CargarDatos() {
   for (int i = 0; i < listadoNombre.length; i++) {
-    listadoProductos
-        .add(ProductWidget(nombre: listadoNombre[i], precio: i + 10));
+    listadoProductos.add(ProductWidget(
+      nombre: listadoNombre[i],
+      precio: i + 10,
+      desc: "Loroeorooeroeo",
+    ));
   }
 }
