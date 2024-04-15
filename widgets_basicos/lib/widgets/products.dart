@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:widgets_basicos/screens/ProductScreen.dart';
-import 'package:widgets_basicos/screens/login.dart';
 
 class ProductWidget extends StatelessWidget {
   final String nombre;
   final int precio;
   final String desc;
+  final String image;
 
-  ProductWidget(
-      {super.key,
-      required this.nombre,
-      required this.precio,
-      required this.desc});
+  ProductWidget({
+    super.key,
+    required this.nombre,
+    required this.precio,
+    required this.desc,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class ProductWidget extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ProductScreen("assets/images/Carrusel2.jpg"),
+                              ProductScreen(image, nombre, precio, desc),
                         ),
                       );
                     },

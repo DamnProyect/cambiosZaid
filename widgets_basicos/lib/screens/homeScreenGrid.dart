@@ -31,7 +31,8 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: 5,
+              //Selecciona la cantidad de productos que mostrara el grid
+              itemCount: listadoProductos.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 13,
@@ -40,6 +41,8 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
                 mainAxisExtent: 220,
               ),
               itemBuilder: (context, index) {
+                print(listadoProductos.length);
+
                 return listadoProductos[index];
               },
             ),
