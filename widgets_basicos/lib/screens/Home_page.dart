@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:widgets_basicos/main.dart';
 import 'package:widgets_basicos/screens/carrito.dart';
 import 'package:widgets_basicos/screens/homeScreenGrid.dart';
+import 'package:widgets_basicos/screens/login.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,10 +25,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         toolbarHeight: 70,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu),
-        ),
         actions: [
           //Icono que manda al logIn
           Container(
@@ -38,11 +35,19 @@ class _HomePageState extends State<HomePage> {
               shape: BoxShape.circle,
               color: Colors.black,
             ),
-            child: const Icon(Icons.person),
+            child: Builder(
+              builder: (context) => InkWell(
+                child: const Icon(Icons.person),
+                onTap: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
+            ),
           )
         ],
         backgroundColor: Colors.black,
         title: Text(
+          //nombre del usuario a modificar
           saludo + context.watch<ModeloUsuario>().nombre,
           style: GoogleFonts.playfairDisplay(
               fontSize: 22, fontWeight: FontWeight.bold),
@@ -72,6 +77,10 @@ class _HomePageState extends State<HomePage> {
             currentIndex = value;
           });
         },
+      ),
+      //Ventana lateral del login page
+      endDrawer: Drawer(
+        child: LoginPage(),
       ),
     );
   }

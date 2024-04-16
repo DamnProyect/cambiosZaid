@@ -133,17 +133,18 @@ class ProductScreen extends StatelessWidget {
                             child: const Icon(
                               CupertinoIcons.cart_fill,
                               size: 22,
-                              color: Color(0xFFFD725A),
+                              color: Colors.black,
                             ),
                           ),
                         ),
                         InkWell(
+                          //Boton comprara ahora
                           onTap: () {},
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 18, horizontal: 70),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFD725A),
+                              color: Colors.black,
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Text(

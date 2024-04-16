@@ -24,9 +24,13 @@ class _LoginPageState extends State<LoginPage> {
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.green[200],
-              title: const Text("Login page"),
+              backgroundColor: Colors.black,
+              title: const Text(
+                "Login page",
+                style: TextStyle(color: Colors.white),
+              ),
               leading: IconButton(
+                color: Colors.white,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
