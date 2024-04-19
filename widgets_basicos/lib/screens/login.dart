@@ -76,6 +76,18 @@ class _LoginPageState extends State<LoginPage> {
                       cursorColor: Colors.indigoAccent,
                     ),
                   ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  ElevatedButton(
+                    //Boton de cierre de sesion para volver al scaffol anterior
+                    onPressed: () {
+                      ModeloUsuario.loginAdmin(false);
+                      //Actualizo el nombre a vacio para el proximo inicio
+                      ModeloUsuario.cambiarNombre(" ");
+                    },
+                    child: Icon(Icons.logout),
+                  )
                 ],
               ),
             ),
@@ -83,6 +95,10 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 //Modifico el nombre en el home
+                if (textControlerUsuario.text == "admin") {
+                  ModeloUsuario.loginAdmin(true);
+                }
+                //Cambio el valor de la variable para mostrar un home
                 ModeloUsuario.cambiarNombre(textControlerUsuario.text);
                 //Limpia los campos
                 textControlerUsuario.clear();

@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:widgets_basicos/main.dart';
 import 'package:widgets_basicos/models/variables.dart';
 import 'package:widgets_basicos/widgets/carrouser.dart';
 
 class HomeScreenGrid extends StatefulWidget {
+  //Variable que determina si se muestran los botones de modificacion y borrado producto.
   const HomeScreenGrid({
     super.key,
   });
@@ -22,33 +25,36 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
   ];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const MiCarrusel(),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              //Selecciona la cantidad de productos que mostrara el grid
-              itemCount: listadoProductos.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 13,
-                crossAxisSpacing: 13,
-                //Extiende el largo de los elementos del grid
-                mainAxisExtent: 220,
-              ),
-              itemBuilder: (context, index) {
-                print(listadoProductos.length);
-
-                return listadoProductos[index];
-              },
-            ),
-          )
-        ],
-      ),
+    return Consumer<ModeloUsuario>(
+      builder: (context, ModeloUsuario, child) {
+        final bool esAdmin = ModeloUsuario.esAdmin;
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const MiCarrusel(),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  //Selecciona la cantidad de productos que mostrara el grid
+                  itemCount: listadoProductos.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 13,
+                    crossAxisSpacing: 13,
+                    //Extiende el largo de los elementos del grid dependiendo si es admin o no
+                    mainAxisExtent: esAdmin ? 250 : 200,
+                  ),
+                  itemBuilder: (context, index) {
+                    return listadoProductos[index];
+                  },
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

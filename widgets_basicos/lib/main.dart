@@ -41,10 +41,17 @@ class _MyAppState extends State<MyApp> {
 class ModeloUsuario extends ChangeNotifier {
   String _nombre = "";
 
+  bool esAdmin = false;
+
   String get nombre => _nombre;
 
   void cambiarNombre(String nombreNuevo) {
     _nombre = nombreNuevo;
+    notifyListeners();
+  }
+
+  void loginAdmin(bool esAdminis) {
+    esAdmin = esAdminis;
     notifyListeners();
   }
 }
