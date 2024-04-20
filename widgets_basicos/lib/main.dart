@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widgets_basicos/screens/Home_page.dart';
-import 'package:widgets_basicos/models/variables.dart';
+import 'package:widgets_basicos/screens/home_pageScreen.dart';
+import 'package:widgets_basicos/models/carga_Datos.dart';
+
+import 'view_models/modelo_usuario.dart';
 
 void main() {
   runApp(
@@ -34,24 +36,5 @@ class _MyAppState extends State<MyApp> {
       //La propiedad home es el inicio de la app, desde alli ya se manejan los demas widget que la componen
       home: HomePage(),
     );
-  }
-}
-
-//Creo el modelo donde se guardan los metodos y las variables que pueden cambiar
-class ModeloUsuario extends ChangeNotifier {
-  String _nombre = "";
-
-  bool esAdmin = false;
-
-  String get nombre => _nombre;
-
-  void cambiarNombre(String nombreNuevo) {
-    _nombre = nombreNuevo;
-    notifyListeners();
-  }
-
-  void loginAdmin(bool esAdminis) {
-    esAdmin = esAdminis;
-    notifyListeners();
   }
 }

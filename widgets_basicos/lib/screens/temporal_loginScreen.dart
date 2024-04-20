@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widgets_basicos/main.dart';
+
+import '../view_models/modelo_usuario.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
