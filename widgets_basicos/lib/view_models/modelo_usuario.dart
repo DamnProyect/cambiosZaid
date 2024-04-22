@@ -21,6 +21,19 @@ class ModeloUsuario extends ChangeNotifier {
     notifyListeners();
   }
 
+  //Metodo para verificar si el favorito ya fue agregado
+  int existFavorite(String nombreArticulo) {
+    for (int i = 0; i < favorites.length; i++) {
+      if (favorites[i].nombre == nombreArticulo) {
+        //Devuelve la posicion
+        return i;
+      }
+    }
+
+    // Si no encuentra el articulo devuelve - 1
+    return -1;
+  }
+
   String _nombre = "";
 
   bool esAdmin = false;

@@ -26,12 +26,13 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
-  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<ModeloUsuario>(
       builder: (context, ModeloUsuario, child) {
         final bool esAdmin = ModeloUsuario.esAdmin;
+        final bool esFavorito =
+            ModeloUsuario.existFavorite(widget.nombre) != -1;
 
         return Center(
           child: Container(
@@ -45,18 +46,26 @@ class _ProductWidgetState extends State<ProductWidget> {
                     padding: EdgeInsets.only(top: 6, right: 9),
                     child: InkWell(
                       onTap: () {
-                        ModeloUsuario.addFavorite(
-                          Favorito(widget.nombre, widget.image, widget.precio),
-                        );
+                        int indexFav =
+                            ModeloUsuario.existFavorite(widget.nombre);
 
-                        setState(() {
-                          isSelected = true;
-                        });
+                        //Si existe el favorito lo borra
+
+                        if (indexFav != -1) {
+                          ModeloUsuario.deleteFavorite(indexFav);
+                        } else {
+                          //Lo agrega
+                          ModeloUsuario.addFavorite(
+                            Favorito(
+                                widget.nombre, widget.image, widget.precio),
+                          );
+                        }
                       },
                       child: Icon(
                         Icons.favorite,
                         size: 20,
-                        color: isSelected ? Colors.red : Colors.black,
+                        // Dependiendo si es favorito o no lo pinta de un color u otro
+                        color: esFavorito ? Colors.red : Colors.black,
                       ),
                     ),
                   ),
