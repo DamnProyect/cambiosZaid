@@ -5,7 +5,6 @@ import "package:widgets_basicos/screens/homeScreenGrid.dart";
 import "package:widgets_basicos/screens/temporal_loginScreen.dart";
 
 //Scaffol del administrador
-
 class AdminScaffold extends StatefulWidget {
   const AdminScaffold({
     super.key,
@@ -16,11 +15,13 @@ class AdminScaffold extends StatefulWidget {
 }
 
 class _AdminScaffoldState extends State<AdminScaffold> {
+  //Funcion que llama al formulario para introducir nuevo articulo
   nuevoArticulo(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return const AlertDialog(
+            //LLamada al formulario
             content: InputForm(),
           );
         });
@@ -74,11 +75,11 @@ class _AdminScaffoldState extends State<AdminScaffold> {
           //Llamada a la funcion del alertDialog
           nuevoArticulo(context);
         },
+        backgroundColor: Colors.lightGreen,
+        shape: const CircleBorder(),
         child: const Icon(
           Icons.add,
         ),
-        backgroundColor: Colors.lightGreen,
-        shape: const CircleBorder(),
       ),
     );
   }
