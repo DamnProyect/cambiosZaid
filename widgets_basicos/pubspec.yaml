@@ -41,6 +41,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_svg:  ^0.22.0
   feather_icons_svg: ^0.2.1
+  image_picker: ^0.8.6
 
 
 dev_dependencies:
