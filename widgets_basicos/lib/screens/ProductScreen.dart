@@ -1,6 +1,8 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
+import "package:widgets_basicos/baseDeDatos/producto_dao.dart";
+import "package:widgets_basicos/baseDeDatos/producto_model.dart";
 import "package:widgets_basicos/models/Favoritos.dart";
 import "package:widgets_basicos/view_models/modelo_usuario.dart";
 
@@ -13,7 +15,8 @@ class ProductScreen extends StatelessWidget {
   ProductScreen(this.image, this.nombre, this.precio, this.desc, {super.key}) {
     super.key;
   }
-
+  //Metodos de insert y de la base de datos
+  final dao = ProductoDao();
   @override
   Widget build(BuildContext context) {
     return Consumer<ModeloUsuario>(
@@ -144,7 +147,15 @@ class ProductScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                final name = nombre;
+                                ProductoModel producto =
+                                    ProductoModel(name: name);
+                                final id = await dao.Insert(producto);
+                                producto = producto.copyWith(id: id);
+
+                                //agregarCarrito(producto);
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(18),
                                 decoration: BoxDecoration(

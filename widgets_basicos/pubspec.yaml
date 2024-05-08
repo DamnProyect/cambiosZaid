@@ -42,6 +42,7 @@ dependencies:
   flutter_svg:  ^0.22.0
   feather_icons_svg: ^0.2.1
   image_picker: ^0.8.6
+  sqflite: ^2.3.2
 
 
 dev_dependencies:

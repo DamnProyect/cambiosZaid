@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/screens/home_pageScreen.dart';
 import 'package:widgets_basicos/models/carga_Datos.dart';
-
+import 'baseDeDatos/database_helper.dart';
 import 'view_models/modelo_usuario.dart';
 
-void main() {
+void main() async {
+  // Incia la base de datos
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.instance.init();
   runApp(
     //Implemento el notificador de estado
     ChangeNotifierProvider(
