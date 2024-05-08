@@ -32,50 +32,10 @@ class _CarritoPageState extends State<CarritoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'CARRITO DE PRODUCTOS',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 153, 152, 150),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart),
-            color: const Color.fromARGB(255, 0, 0, 0),
-          ),
-        ],
-      ),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final name = controller.text;
-                    ProductoModel producto = ProductoModel(name: name);
-                    final id = await dao.Insert(producto);
-                    producto = producto.copyWith(id: id);
-                    controller.clear();
-                    setState(() {
-                      productos.add(producto);
-                    });
-                  },
-                  child: const Text('Crear Producto'),
-                ),
-              ],
-            ),
           ),
           ListView.builder(
             physics:
