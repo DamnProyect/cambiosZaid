@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_basicos/screens/registro.dart';
 
 import '../view_models/modelo_usuario.dart';
 
@@ -20,100 +21,97 @@ class _LoginPageState extends State<LoginPage> {
     //Es importante que los demas widgets tengan el mismo consumer y contexto para poder
     //usar los datos del modelo.
     return Consumer<ModeloUsuario>(
-      builder: (context, ModeloUsuario, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              title: const Text(
-                "Login page",
-                style: TextStyle(color: Colors.white),
-              ),
-              leading: IconButton(
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.arrow_back_ios),
-              ),
+      builder: (context, modeloUsuario, child) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: const Text("Iniciar sesión",
+                style: TextStyle(color: Colors.white)),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            body: Center(
+          ),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 200,
-                    child: TextField(
-                      //TextFiel usuario
-                      controller: textControlerUsuario,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                          icon: const Icon(Icons.person),
-                          hintText: "Escribe algo",
-                          fillColor: Colors.grey.shade300,
-                          focusColor: Colors.blue,
-                          border: InputBorder.none,
-                          filled: true),
-                      cursorColor: Colors.indigoAccent,
-                    ),
+                  buildTextField(
+                    controller: textControlerUsuario,
+                    label: 'Nombre de usuario',
+                    icon: Icons.person,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  buildTextField(
+                    controller: textControlerPass,
+                    label: 'Contraseña',
+                    icon: Icons.lock,
+                    isPassword: true,
                   ),
-                  SizedBox(
-                    //TextField del password
-                    width: 200,
-                    child: TextField(
-                      controller: textControlerPass,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                          icon: const Icon(Icons.password),
-                          hintText: "Contraseña",
-                          fillColor: Colors.grey.shade300,
-                          border: InputBorder.none,
-                          focusColor: Colors.blue,
-                          filled: true),
-                      cursorColor: Colors.indigoAccent,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 18,
-                  ),
+                  SizedBox(height: 20),
                   ElevatedButton(
-                    //Boton de cierre de sesion para volver al scaffol anterior
                     onPressed: () {
-                      ModeloUsuario.loginAdmin(false);
-                      //Actualizo el nombre a vacio para el proximo inicio
-                      ModeloUsuario.cambiarNombre(" ");
-                    },
-                    child: Icon(Icons.logout),
-                  )
-                ],
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                //Modifico el nombre en el home
-                if (textControlerUsuario.text == "admin") {
+/* 
+if (textControlerUsuario.text == "admin") {
                   ModeloUsuario.loginAdmin(true);
                 }
                 //Cambio el valor de la variable para mostrar un home
-                ModeloUsuario.cambiarNombre(textControlerUsuario.text);
-                //Limpia los campos
-                textControlerUsuario.clear();
-                textControlerPass.clear();
-              },
-              backgroundColor: Colors.green,
-              child: const Icon(
-                Icons.send,
-                color: Colors.white,
+                ModeloUsuario.cambiarNombre(textControlerUsuario.text); */
+                    },
+                    child: const Text('Iniciar sesión'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("¿No tienes una cuenta? "),
+                        TextButton(
+                          onPressed: () => _navigateToRegisterPage(context),
+                          child: const Text('Registrarse'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         );
       },
     );
+  }
+
+  Widget buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    bool isPassword = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextField(
+        controller: controller,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+        ),
+        cursorColor: Theme.of(context).primaryColor,
+      ),
+    );
+  }
+
+  void _navigateToRegisterPage(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 }

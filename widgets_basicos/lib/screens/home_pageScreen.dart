@@ -49,9 +49,8 @@ class _HomePageState extends State<HomePage> {
                       child: Builder(
                         builder: (context) => InkWell(
                           child: const Icon(Icons.person),
-                          onTap: () {
-                            Scaffold.of(context).openEndDrawer();
-                          },
+                          // Boton de login
+                          onTap: () => _showLoginForm(context),
                         ),
                       ),
                     )
@@ -102,6 +101,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
       },
+    );
+  }
+
+  // Metodo que llama al login page
+  void _showLoginForm(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return LoginPage();
+      },
+      isScrollControlled: true,
     );
   }
 }
