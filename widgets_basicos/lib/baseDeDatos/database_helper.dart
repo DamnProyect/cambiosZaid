@@ -17,7 +17,7 @@ class DatabaseHelper {
         onCreate: (db, version) async {
       //Tabla productos
       db.execute(
-          'Create table productos (IdProducto	INTEGER PRIMARY KEY AUTOINCREMENT ,name	varchar(255), price	INTEGER DEFAULT 1,image varchar(255),desc varchar(255))');
+          'Create table productos (id	INTEGER PRIMARY KEY AUTOINCREMENT ,name	varchar(255), price	INTEGER DEFAULT 1,image varchar(255),desc varchar(255))');
 
       // Tabla de carrito
       db.execute(
