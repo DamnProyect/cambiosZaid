@@ -5,6 +5,14 @@ class ModeloUsuario extends ChangeNotifier {
   //Listado de favoritos
   List<Favorito> favorites = <Favorito>[];
 
+  //Verifica si se ha iniciado sesion
+  bool incioSesion = false;
+
+  void modificarBotonInicio(bool valor) {
+    incioSesion = valor;
+    notifyListeners();
+  }
+
   //Cantidad de favoritos
   int get numFavorites => favorites.length;
 
@@ -47,6 +55,10 @@ class ModeloUsuario extends ChangeNotifier {
 
   void loginAdmin(bool esAdminis) {
     esAdmin = esAdminis;
+    notifyListeners();
+  }
+
+  void upadteScreen() {
     notifyListeners();
   }
 }
