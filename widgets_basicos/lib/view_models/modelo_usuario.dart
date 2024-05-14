@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_basicos/models/Favoritos.dart';
+import 'package:widgets_basicos/models/carga_Datos.dart';
 
 class ModeloUsuario extends ChangeNotifier {
   //Listado de favoritos
@@ -10,6 +11,12 @@ class ModeloUsuario extends ChangeNotifier {
 
   void modificarBotonInicio(bool valor) {
     incioSesion = valor;
+    notifyListeners();
+  }
+
+  Future<void> actualizarGrid() async {
+    listadoProductos = [];
+    await cargarDatos();
     notifyListeners();
   }
 

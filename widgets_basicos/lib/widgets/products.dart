@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/models/Favoritos.dart';
+import 'package:widgets_basicos/models/carga_Datos.dart';
 import 'package:widgets_basicos/models/productsModel.dart';
 import 'package:widgets_basicos/screens/productScreen.dart';
 
@@ -22,6 +24,9 @@ class ProductWidget extends StatefulWidget {
 
 class _ProductWidgetState extends State<ProductWidget> {
   @override
+  //Controlador de la base de datos.
+  final dao = ProductoDao();
+
   Widget build(BuildContext context) {
     return Consumer<ModeloUsuario>(
       builder: (context, ModeloUsuario, child) {
@@ -108,11 +113,16 @@ class _ProductWidgetState extends State<ProductWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ElevatedButton(
+                              //Boton de edicion
                               onPressed: () {},
                               child: Icon(Icons.border_color_outlined),
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              //Boton de borrado
+                              onPressed: () async {
+                                dao.deleteProduct(widget.producto.id);
+                                ModeloUsuario.actualizarGrid();
+                              },
                               child: Icon(Icons.delete_outline),
                             )
                           ],
