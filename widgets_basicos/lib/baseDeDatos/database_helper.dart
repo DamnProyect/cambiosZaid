@@ -26,7 +26,7 @@ class DatabaseHelper {
 
         // Tabla de usuarios
         db.execute(
-            'Create table usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar(255), password varchar(255),email varchar(255),phoneNumber varchar(255),)');
+            'Create table usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar(255), password varchar(255),email varchar(255),phoneNumber varchar(255))');
       },
     );
   }

@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
+import 'package:widgets_basicos/models/productsModel.dart';
+import 'package:widgets_basicos/view_models/modelo_usuario.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:widgets_basicos/widgets/products.dart';
 
 class InputForm extends StatefulWidget {
   const InputForm({super.key});
@@ -21,6 +26,15 @@ class _InputFormState extends State<InputForm> {
   //Objeto file picker que almacena el fichero seleccionado de camara o galeria
   final picker = ImagePicker();
 
+  //Funcion que guarda la imagen el la carpeta de assets
+  Future<String> saveImageToDisk(XFile imageFile) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final fileName = '${"foto1"}.png';
+    final filePath = '${appDir.path}/flutter_assets/$fileName';
+    await imageFile.saveTo('${filePath}');
+    return filePath;
+  }
+
   //Funcion para cargar las imagenes
   Future selImagen(op) async {
     XFile? pickedFile;
@@ -31,20 +45,26 @@ class _InputFormState extends State<InputForm> {
       //Se selecciono galeria
       pickedFile = await picker.pickImage(source: ImageSource.gallery);
     }
+
+    imagePath = await saveImageToDisk(pickedFile!); // Uso de saveImageToDisk
     //Se actualiza el estado del form para mostrar la imagen seleccionada
     setState(
       () {
         if (pickedFile != null) {
           //Actualiza el valor de la variable imagen
-          imagen = File(pickedFile.path);
+          imagen = File(imagePath);
         } else {
           print("No seleccionaste la foto");
         }
       },
     );
+
     //Cierra la ventana de seleccionar camara o galeria
     Navigator.of(context).pop();
   }
+
+  //Intancia de la base de datos
+  final dao = ProductoDao();
 
   //Funcion para agregar la imagen
   agregarImagen(context) {
@@ -184,6 +204,20 @@ class _InputFormState extends State<InputForm> {
                   if (formKey.currentState!.validate()) {}
                   //Guarda los cambios en una KeyGlobal
                   formKey.currentState!.save();
+
+                  print(imagePath);
+
+                  /* dao.insertProduct(
+                    Product(
+                        name: nombreProducto,
+                        price: precio,
+                        desc: descripcion,
+                        image: imagePath),
+                  );
+
+                  ModeloUsuario().actualizarGrid();
+
+                  Navigator.of(context).pop(); */
                 },
                 child: const Icon(Icons.send))
           ],
