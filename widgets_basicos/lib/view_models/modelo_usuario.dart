@@ -15,7 +15,7 @@ class ModeloUsuario extends ChangeNotifier {
   }
 
   Future<void> actualizarGrid() async {
-    listadoProductos = [];
+    listadoProductos.clear();
     await cargarDatos();
     notifyListeners();
   }

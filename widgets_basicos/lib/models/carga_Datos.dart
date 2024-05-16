@@ -1,3 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/models/productsModel.dart';
@@ -31,31 +36,60 @@ List<String> listadoNombre = [
   'calabaza',
   'champiñón'
 ];
+//Funcion que al iniciar copia las imagenes de la carpeta assets del dispisitivo
+//para cargar los productos de prueba
+Future<void> copyAssetsToLocal() async {
+  try {
+    // Obtenemos el directorio de almacenamiento local
+    Directory localPath = await getApplicationDocumentsDirectory();
+
+    // Copiamos cada imagen de los assets al directorio local
+    await _copyAssetsToLocal('assets/images/Carrusel1.jpg', localPath);
+    await _copyAssetsToLocal('assets/images/Carrusel2.jpg', localPath);
+  } catch (e) {
+    throw Exception('Error al copiar imágenes: $e');
+  }
+}
+
+Future<void> _copyAssetsToLocal(String assetPath, Directory localPath) async {
+  // Obtenemos la referencia al archivo en los assets
+  ByteData data = await rootBundle.load(assetPath);
+  List<int> bytes = data.buffer.asUint8List();
+
+  // Obtenemos el nombre del archivo
+  String fileName = assetPath.split('/').last;
+
+  // Creamos el archivo en el directorio local
+  File localFile = File('${localPath.path}/flutter_assets/$fileName');
+  await localFile.writeAsBytes(bytes);
+}
 
 //Al iniciar el programa esta funcion llena castea todos los productos y sus atributos
 //Tambien los agrega al listado de productos
 
 cargarDatos() async {
-  /* for (int i = 0; i < listadoNombre.length; i++) {
-    listadoProductos.add(ProductWidget(
-      nombre: listadoNombre[i],
-      precio: i + 10,
-      image: "assets/images/Carrusel2.jpg",
-      desc:
-          "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500",
-    ));
-  } */
+  //Llamada a la funcion para copias las imagenes
+  copyAssetsToLocal().then((_) {
+    print("Imagenes copiadas con exito");
+  }).catchError((error) {
+    print("Error al copiar las imagenes: $error");
+  });
 
   //Insert de registros si la tabla productos esta vacia
   final estavacia = await ProductoDao().isProductEmpty();
   if (estavacia) {
+    //Ruta del directorio del dispoisitivo
+    Directory directory = await getApplicationDocumentsDirectory();
+    //ruta donde se tiene almacenada la imagen
+    String ruta = '${directory.path}/flutter_assets/Carrusel1.jpg';
+
     for (int i = 0; i < listadoNombre.length; i++) {
       Product producto = Product(
         name: listadoNombre[i],
         price: i + 10,
         desc:
             "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500",
-        image: "assets/images/Carrusel2.jpg",
+        image: ruta,
       );
 
       listadoProductos.add(
@@ -69,11 +103,13 @@ cargarDatos() async {
     //Si no esta vacia carga los valores de la base de datos.
     List<Product> dataBaseList = await dao.readProductList();
 
-    dataBaseList.forEach((element) {
-      listadoProductos.add(
-        ProductWidget(producto: element),
-      );
-    });
+    dataBaseList.forEach(
+      (element) {
+        listadoProductos.add(
+          ProductWidget(producto: element),
+        );
+      },
+    );
   }
 
   /* await dao.insertProduct(miProducto);

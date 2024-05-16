@@ -1,3 +1,5 @@
+import "dart:io";
+
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
@@ -35,7 +37,7 @@ class ProductScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 244, 224, 224),
                       image: DecorationImage(
-                          image: AssetImage(image), fit: BoxFit.cover),
+                          image: FileImage(File(image)), fit: BoxFit.cover),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),

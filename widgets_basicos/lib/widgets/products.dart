@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,8 +91,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                             ),
                           );
                         },
-                        child: Image.asset(
-                          widget.producto.image,
+                        child: Image.file(
+                          File(widget.producto.image),
                           fit: BoxFit.contain,
                           width: 111,
                           height: 111,
