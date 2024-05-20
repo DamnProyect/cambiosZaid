@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
+import 'package:widgets_basicos/forms/updateForm.dart';
 import 'package:widgets_basicos/models/Favoritos.dart';
 import 'package:widgets_basicos/models/carga_Datos.dart';
 import 'package:widgets_basicos/models/productsModel.dart';
@@ -30,6 +31,20 @@ class _ProductWidgetState extends State<ProductWidget> {
   final dao = ProductoDao();
 
   Widget build(BuildContext context) {
+    //Funcion que llama al nuevo articulo
+    updateArticulo(context) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              //LLamada al formulario
+              content: UpdateForm(
+                producto: widget.producto,
+              ),
+            );
+          });
+    }
+
     return Consumer<ModeloUsuario>(
       builder: (context, ModeloUsuario, child) {
         final bool esAdmin = ModeloUsuario.esAdmin;
@@ -116,7 +131,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                           children: [
                             ElevatedButton(
                               //Boton de edicion
-                              onPressed: () {},
+                              onPressed: () {
+                                updateArticulo(context);
+                              },
                               child: Icon(Icons.border_color_outlined),
                             ),
                             ElevatedButton(

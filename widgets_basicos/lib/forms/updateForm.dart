@@ -11,21 +11,19 @@ import 'package:widgets_basicos/view_models/modelo_usuario.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:widgets_basicos/widgets/products.dart';
 
-class InputForm extends StatefulWidget {
-  const InputForm({super.key});
+class UpdateForm extends StatefulWidget {
+  final Product producto;
+  const UpdateForm({super.key, required this.producto});
   @override
-  State<InputForm> createState() => _InputFormState();
+  State<UpdateForm> createState() => _UpdateFormState();
 }
 
-class _InputFormState extends State<InputForm> {
+class _UpdateFormState extends State<UpdateForm> {
   File? imagen;
-  String nombreProducto = "";
+  String nombreProducto = "{}";
   int precio = 0;
   String descripcion = "";
   String imagePath = "";
-
-  File addImageIcon = File(
-      "/data/user/0/com.example.widgets_basicos/app_flutter/flutter_assets/agregarImagen.png");
 //Llave que se usa para guardar los valors del formulario
   final formKey = GlobalKey<FormState>();
   //Objeto file picker que almacena el fichero seleccionado de camara o galeria
@@ -165,13 +163,15 @@ class _InputFormState extends State<InputForm> {
                     child: //Siempre que el valor de la imagen no sea nullo la muestra
                         Center(
                       child: imagen == null
-                          ? Image.file(addImageIcon)
+                          ? Image.file(File(widget.producto.image))
                           : Image.file(imagen!),
                     ),
                   ),
                 ),
                 //Formulario con sus campos respectivos
                 TextFormField(
+                  //Carga el valor inicial del formulario igual al widget seleccionado
+                  initialValue: widget.producto.name,
                   decoration:
                       const InputDecoration(labelText: "Nombre del producto"),
                   onSaved: (value) {
@@ -185,6 +185,7 @@ class _InputFormState extends State<InputForm> {
                   },
                 ),
                 TextFormField(
+                  initialValue: widget.producto.price.toString(),
                   decoration: const InputDecoration(labelText: "Precio"),
                   onSaved: (value) {
                     //Verificar que el campo no este vacio y por ende se pueda parsear
@@ -195,13 +196,12 @@ class _InputFormState extends State<InputForm> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Debes llenar los campos";
-                    } else if (int.tryParse(value) == null) {
-                      return "Debe ser valor númerico";
                     }
                     return null;
                   },
                 ),
                 TextFormField(
+                  initialValue: widget.producto.desc,
                   decoration: const InputDecoration(labelText: "Descripcion"),
                   onSaved: (value) {
                     descripcion = value!;
@@ -214,29 +214,30 @@ class _InputFormState extends State<InputForm> {
                   },
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      if (imagePath == "") {
-                        imagePath =
-                            "/data/user/0/com.example.widgets_basicos/app_flutter/flutter_assets/agregarImagen.png";
-                      }
-
+                    onPressed: () async {
                       //Antes de guardar los campos valida si estan llenos
-                      if (formKey.currentState!.validate()) {
-                        //Guarda los cambios en una KeyGlobal
-                        formKey.currentState!.save();
-                        //Realiza el insert del producto a la base de datos
-                        dao.insertProduct(
-                          Product(
-                              name: nombreProducto,
-                              price: precio,
-                              desc: descripcion,
-                              image: imagePath),
-                        );
-                        //Actualiza el listado de productos luego de la insercion.
-                        ModeloUsuario.actualizarGrid();
-                        //Cierra la ventana
-                        Navigator.of(context).pop();
-                      }
+                      if (formKey.currentState!.validate()) {}
+                      //Guarda los cambios en una KeyGlobal
+                      formKey.currentState!.save();
+
+                      //Crea un nuevo producto con los nuevos datos
+                      final Product updatedProduct = Product(
+                        id: widget.producto.id,
+                        name: nombreProducto,
+                        price: precio,
+                        desc: descripcion,
+                        image:
+                            imagen == null ? widget.producto.image : imagePath,
+                      );
+
+                      //Realiza el insert del producto a la base de datos
+                      await dao.updateProduct(updatedProduct);
+
+                      print("actualizacion realizada");
+                      //Actualiza el listado de productos luego de la insercion.
+                      ModeloUsuario.actualizarGrid();
+                      //Cierra la ventana
+                      Navigator.of(context).pop();
                     },
                     child: const Icon(Icons.send))
               ],

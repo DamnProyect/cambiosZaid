@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:provider/provider.dart";
 import "package:widgets_basicos/forms/addForm.dart";
+import "package:widgets_basicos/forms/updateForm.dart";
 import "package:widgets_basicos/screens/homeScreenGrid.dart";
 import "package:widgets_basicos/screens/temporal_loginScreen.dart";
 import "package:widgets_basicos/view_models/modelo_usuario.dart";

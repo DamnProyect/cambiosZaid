@@ -3,11 +3,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/models/productsModel.dart';
-import 'package:widgets_basicos/screens/home_pageScreen.dart';
-import 'package:widgets_basicos/view_models/modelo_usuario.dart';
 import 'package:widgets_basicos/widgets/products.dart';
 
 final dao = ProductoDao();
@@ -46,6 +44,7 @@ Future<void> copyAssetsToLocal() async {
     // Copiamos cada imagen de los assets al directorio local
     await _copyAssetsToLocal('assets/images/Carrusel1.jpg', localPath);
     await _copyAssetsToLocal('assets/images/Carrusel2.jpg', localPath);
+    await _copyAssetsToLocal('assets/images/agregarImagen.png', localPath);
   } catch (e) {
     throw Exception('Error al copiar imágenes: $e');
   }
@@ -75,30 +74,46 @@ cargarDatos() async {
     print("Error al copiar las imagenes: $error");
   });
 
+  // Verificamos si es la primera vez que se abre la app
+
+  // Verificamos si es la primera vez que se abre la app
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // Depuración: Listar todas las claves en SharedPreferences
+  print('SharedPreferences keys: ${prefs.getKeys()}');
+
+  bool isFirstRun = prefs.getBool('isFirstRun') ?? true;
+
+  print(isFirstRun);
+
   //Insert de registros si la tabla productos esta vacia
-  final estavacia = await ProductoDao().isProductEmpty();
-  if (estavacia) {
-    //Ruta del directorio del dispoisitivo
-    Directory directory = await getApplicationDocumentsDirectory();
-    //ruta donde se tiene almacenada la imagen
-    String ruta = '${directory.path}/flutter_assets/Carrusel1.jpg';
+  if (isFirstRun) {
+    final estavacia = await ProductoDao().isProductEmpty();
+    if (estavacia) {
+      //Ruta del directorio del dispoisitivo
+      Directory directory = await getApplicationDocumentsDirectory();
+      //ruta donde se tiene almacenada la imagen
+      String ruta = '${directory.path}/flutter_assets/Carrusel1.jpg';
 
-    for (int i = 0; i < listadoNombre.length; i++) {
-      Product producto = Product(
-        name: listadoNombre[i],
-        price: i + 10,
-        desc:
-            "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500",
-        image: ruta,
-      );
+      for (int i = 0; i < listadoNombre.length; i++) {
+        Product producto = Product(
+          name: listadoNombre[i],
+          price: i + 10,
+          desc:
+              "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500",
+          image: ruta,
+        );
 
-      listadoProductos.add(
-        ProductWidget(producto: producto),
-      );
+        listadoProductos.add(
+          ProductWidget(producto: producto),
+        );
 
-      dao.insertProduct(producto);
-      print("Insert completo");
+        dao.insertProduct(producto);
+        print("Insert completo");
+      }
     }
+    // Marcamos que ya no es la primera vez que se abre la app
+    await prefs.setBool('isFirstRun', false);
   } else {
     //Si no esta vacia carga los valores de la base de datos.
     List<Product> dataBaseList = await dao.readProductList();
