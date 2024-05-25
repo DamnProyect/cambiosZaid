@@ -42,6 +42,7 @@ class _AdminScaffoldState extends State<AdminScaffold> {
             actions: [
               //Icono que manda al logIn
               ElevatedButton(
+
                   //Controlo que al iniciar la sesion de admin se cambie el boton de salida de sesion.
                   onPressed: () {
                     ModeloUsuario.loginAdmin(false);

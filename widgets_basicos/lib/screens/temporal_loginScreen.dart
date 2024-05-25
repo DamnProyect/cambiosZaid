@@ -24,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, modeloUsuario, child) {
         return Scaffold(
           appBar: AppBar(
+            toolbarHeight: 70,
+            elevation: 0,
             backgroundColor: Colors.black,
             title: const Text("Iniciar sesión",
                 style: TextStyle(color: Colors.white)),
