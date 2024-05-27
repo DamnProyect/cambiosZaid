@@ -27,10 +27,10 @@ class _HomePageState extends State<HomePage> {
     //Importante para que se compartan los cambios entre los widgets la linea del consumer y
     //builder deben ser exactas.
     return Consumer<ModeloUsuario>(
-      builder: (context, ModeloUsuario, child) {
+      builder: (context, modeloUsuario, child) {
         //Verifico si el usuario es administrador y dependiendo retorno el homepage
-        final esAdmin = ModeloUsuario.esAdmin;
-        final sesionInciada = ModeloUsuario.incioSesion;
+        final esAdmin = modeloUsuario.esAdmin;
+        final sesionInciada = modeloUsuario.inicioSesion;
 
         return esAdmin
             ? const AdminScaffold()
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.black,
                   title: Text(
                     //nombre del usuario a modificar
-                    saludo + ModeloUsuario.nombre,
+                    saludo + (modeloUsuario.usuarioActual?.username ?? ''),
                     style: GoogleFonts.playfairDisplay(
                         fontSize: 22, fontWeight: FontWeight.bold),
                   ),
