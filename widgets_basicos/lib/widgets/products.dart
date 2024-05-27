@@ -69,11 +69,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                         } else {
                           ModeloUsuario.addFavorite(
                             Favorito(
-                              id: 0, // Autoincremental en la BD
-                              imagen: widget.producto.image,
-                              nombre: widget.producto.name,
-                              precio: widget.producto.price,
-                            ),
+                                id: 0, // Autoincremental en la BD
+                                imagen: widget.producto.image,
+                                nombre: widget.producto.name,
+                                precio: widget.producto.price,
+                                desc: widget.producto.desc),
                           );
                         }
                       },

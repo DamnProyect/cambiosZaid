@@ -78,7 +78,8 @@ class ProductScreen extends StatelessWidget {
                                       id: 0,
                                       nombre: nombre,
                                       imagen: image,
-                                      precio: precio),
+                                      precio: precio,
+                                      desc: desc),
                                 );
                               }
                             },

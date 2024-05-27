@@ -42,7 +42,7 @@ class DatabaseHelper {
 
         // Tabla de favoritos
         await db.execute(
-          'CREATE TABLE favoritos (id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, image TEXT, name TEXT, price INTEGER DEFAULT 1, FOREIGN KEY(userId) REFERENCES usuarios(id))',
+          'CREATE TABLE favoritos (id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, image TEXT, name TEXT, description TEXT,price INTEGER DEFAULT 1, FOREIGN KEY(userId) REFERENCES usuarios(id))',
         );
         print("Table 'favoritos' created."); // Log de creación de tabla
       },
@@ -100,10 +100,15 @@ class DatabaseHelper {
 
   // Métodos para gestionar los favoritos
   Future<int> insertFavorito(
-      int userId, String image, String name, int price) async {
+      int userId, String image, String name, int price, String desc) async {
     final db = await instance.db;
-    return await db.insert('favoritos',
-        {'userId': userId, 'image': image, 'name': name, 'price': price});
+    return await db.insert('favoritos', {
+      'userId': userId,
+      'image': image,
+      'name': name,
+      'description': desc,
+      'price': price
+    });
   }
 
   Future<List<Map<String, dynamic>>> getFavoritos(int userId) async {
@@ -118,10 +123,10 @@ class DatabaseHelper {
   }
 
   // Función de eliminar la base de datos
-/* 
+
   Future<void> deleteDatabase() async {
     final dbPath = join(await getDatabasesPath(), 'database.db');
     await databaseFactory.deleteDatabase(dbPath);
     print("Database deleted");
-  } */
+  }
 }
