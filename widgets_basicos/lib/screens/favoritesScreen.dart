@@ -72,7 +72,7 @@ class ListadoFavoritos extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 13,
                 crossAxisSpacing: 13,
-                mainAxisExtent: 170,
+                mainAxisExtent: 310,
               ),
               itemBuilder: (context, index) {
                 return Card(

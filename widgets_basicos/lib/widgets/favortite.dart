@@ -29,7 +29,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                   top: 1,
                   right: 1,
                   child: IconButton(
-                    icon: Icon(Icons.delete, size: 20, color: Colors.black),
+                    icon: Icon(Icons.delete, size: 32, color: Colors.red),
                     onPressed: () async {
                       bool? confirmDelete = await showDialog<bool>(
                         context: context,
@@ -65,7 +65,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                   ),
                 ),
                 Positioned(
-                  top: 40,
+                  top: 45,
                   right: 0,
                   left: 0,
                   child: Column(
@@ -86,12 +86,13 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                         },
                         child: Image.file(
                           File(widget.myFavorite.imagen),
-                          fit: BoxFit.contain,
+                          fit: BoxFit.fill,
                           width: 111,
-                          height: 60,
+                          height: 180,
                         ),
                       ),
                       Text(
+                        textAlign: TextAlign.center,
                         widget.myFavorite.nombre,
                         style: GoogleFonts.playfairDisplay(
                             fontSize: 18, fontWeight: FontWeight.bold),

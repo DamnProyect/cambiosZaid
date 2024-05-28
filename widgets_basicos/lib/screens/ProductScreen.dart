@@ -113,7 +113,8 @@ class ProductScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //Aca se modifica el centrado del nombre del producto
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               //Nombre del producto
                               Text(
@@ -121,27 +122,20 @@ class ProductScreen extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 28, fontWeight: FontWeight.bold),
                               ),
-                              //Precio del producto
-                              Text(
-                                "${precio.toStringAsFixed(2)} €",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.red.withOpacity(0.7)),
-                              ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
+
+                        //Precio del producto
+                        Text(
+                          "${precio.toStringAsFixed(2)} €",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.red.withOpacity(0.7)),
                         ),
-                        //Descripcion simple
-                        const Text(
-                          "Infoooo",
-                          style: TextStyle(color: Colors.black54, fontSize: 16),
-                        ),
                         const SizedBox(
-                          height: 18,
+                          height: 10,
                         ),
                         //Descripcion larga
                         Text(

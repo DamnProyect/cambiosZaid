@@ -21,7 +21,20 @@ List<String> listadoNombre = [
   'Pac-man',
   'Resident-evil-0',
   'Rise-of-the-tomb-raider',
+  'Destiny',
 ];
+
+List<String> descripciones = [
+  'Call of Duty: Black Ops 3 es un juego de disparos en primera persona con una intensa campaña, multijugador y modo zombis.',
+  'Halo 4 continúa la historia del Jefe Maestro en un emocionante juego de disparos en primera persona con gráficos impresionantes.',
+  'Metal Gear Solid es un juego de sigilo donde controlas a Solid Snake en misiones de espionaje y acción.',
+  'Mortal Kombat X es un juego de lucha con gráficos realistas, personajes icónicos y brutales fatalities.',
+  'Pac-Man es un clásico arcade donde guías a Pac-Man a través de laberintos, comiendo puntos y evitando fantasmas.',
+  'Resident Evil 0 es un juego de terror y supervivencia, precuela de la serie, con resolución de acertijos y combate contra zombis.',
+  'Rise of the Tomb Raider sigue a Lara Croft en su búsqueda de secretos antiguos, combinando exploración y acción.',
+  'Destiny es un juego de acción y aventuras en un mundo de ciencia ficción. Explora planetas, combate enemigos alienígenas y completa misiones épicas en línea.'
+];
+
 /*Funcion que al iniciar copia las imagenes de la carpeta assets del dispisitivo
 para cargar los productos de prueba*/
 Future<void> copyAssetsToLocal() async {
@@ -91,8 +104,7 @@ cargarDatos() async {
         Product producto = Product(
           name: nombreNuevo,
           price: i + 10,
-          desc:
-              "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500",
+          desc: descripciones[i],
           image: ruta,
         );
 

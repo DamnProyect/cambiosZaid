@@ -87,7 +87,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                 ),
                 Positioned(
-                  top: 25,
+                  top: 30,
                   right: 0,
                   left: 0,
                   child: Column(
@@ -107,20 +107,21 @@ class _ProductWidgetState extends State<ProductWidget> {
                         },
                         child: Image.file(
                           File(widget.producto.image),
-                          fit: BoxFit.contain,
-                          width: 111,
-                          height: 111,
+                          fit: BoxFit.fill,
+                          height: 160,
+                          width: 120,
                         ),
                       ),
                       SizedBox(height: 5),
                       Text(
+                        textAlign: TextAlign.center,
                         widget.producto.name,
-                        style: GoogleFonts.playfairDisplay(
+                        style: GoogleFonts.montserrat(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "${widget.producto.price.toStringAsFixed(2)} €",
-                        style: GoogleFonts.playfairDisplay(fontSize: 16),
+                        style: GoogleFonts.montserrat(fontSize: 18),
                       ),
                       //Fila de los botones de edicion y borrado
                       Visibility(
