@@ -29,6 +29,8 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
     return Consumer<ModeloUsuario>(
       builder: (context, ModeloUsuario, child) {
         final bool esAdmin = ModeloUsuario.esAdmin;
+        final sortedProducts = listadoProductos.toList()
+          ..sort((a, b) => a.producto.name.compareTo(b.producto.name));
         return SingleChildScrollView(
           child: Column(
             children: [
@@ -67,7 +69,7 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
                           mainAxisExtent: esAdmin ? 250 : 200,
                         ),
                         itemBuilder: (context, index) {
-                          return listadoProductos[index];
+                          return sortedProducts[index];
                         },
                       ),
                     )
