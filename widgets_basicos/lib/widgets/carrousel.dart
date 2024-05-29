@@ -47,13 +47,17 @@ class _MiCarruselState extends State<MiCarrusel> {
                     width: double.infinity,
                     margin: EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
                       image: DecorationImage(
                         image: AssetImage(heroImages[index]),
                         fit: BoxFit.cover,
                       ),
                     ),
                     child: Container(
-                      color: Colors.black.withOpacity(0.5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.black.withOpacity(0.2),
+                      ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Column(

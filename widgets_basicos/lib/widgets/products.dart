@@ -51,7 +51,10 @@ class _ProductWidgetState extends State<ProductWidget> {
 
         return Center(
           child: Container(
-            color: const Color(0xFFF1F1F1),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xFFF1F1F1),
+            ),
             child: Stack(
               children: [
                 Positioned(

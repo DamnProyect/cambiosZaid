@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/models/carga_Datos.dart';
+import 'package:widgets_basicos/widgets/barraDeBusqueda.dart';
 import 'package:widgets_basicos/widgets/carrousel.dart';
 
 import '../view_models/modelo_usuario.dart';
@@ -34,6 +35,7 @@ class _HomeScreenGridState extends State<HomeScreenGrid> {
         return SingleChildScrollView(
           child: Column(
             children: [
+              const MySearchBar(),
               const MiCarrusel(),
               listadoProductos.isEmpty
                   ? const Center(

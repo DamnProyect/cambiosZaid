@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/models/Favoritos.dart';
-import 'package:widgets_basicos/screens/home_pageScreen.dart';
 import 'package:widgets_basicos/view_models/modelo_usuario.dart';
 import 'package:widgets_basicos/widgets/favortite.dart';
 
