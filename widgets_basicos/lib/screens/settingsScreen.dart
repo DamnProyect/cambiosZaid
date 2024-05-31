@@ -1,73 +1,93 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
-import "package:flutter/material.dart";
-import "package:provider/provider.dart";
-import "package:widgets_basicos/screens/pedidosScreen.dart";
-import "package:widgets_basicos/view_models/modelo_usuario.dart";
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:widgets_basicos/screens/pedidosScreen.dart';
+import 'package:widgets_basicos/screens/adminScreen.dart';
+import 'package:widgets_basicos/view_models/modelo_usuario.dart';
 
 class settingScreen extends StatelessWidget {
-  const settingScreen({super.key});
+  const settingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ModeloUsuario>(
-      builder: (context, ModeloUsuario, child) {
+      builder: (context, modeloUsuario, child) {
+        print(
+            "Usuario admin: ${modeloUsuario.esAdmin}"); // Mensaje de depuración
         return ListView(
           padding: EdgeInsets.zero,
-          children: <Widget>[
-            // ignore: prefer_const_constructors
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.black,
-              ),
-              child: const Text(
-                'Ajustes',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            _buildListTile(
-              icon: Icons.local_shipping,
-              title: 'Pedidos',
-              onTap: () {
-                // Navega a la pantalla ListadoPedidos
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ListadoPedidos()),
-                );
-              },
-            ),
-            const ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Favoritos'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.shopping_cart),
-              title: Text('Carrito'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.dark_mode),
-              title: Text('Modo oscuro'),
-            ),
-            SizedBox(
-              height: 250,
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Cerrar sesión"),
-              onTap: () {
-                ModeloUsuario.loginAdmin(false);
-                ModeloUsuario.modificarBotonInicio(false);
-                ModeloUsuario.cambiarNombre("");
-                Navigator.of(context).pop();
-              },
-            )
-          ],
+          children: _buildSettings(context, modeloUsuario),
         );
       },
     );
+  }
+
+  List<Widget> _buildSettings(
+      BuildContext context, ModeloUsuario modeloUsuario) {
+    List<Widget> settings = [
+      DrawerHeader(
+        child: Text(
+          'Ajustes',
+          style: TextStyle(
+            color: modeloUsuario.isDarkMode ? Colors.white : Colors.black,
+            fontSize: 24,
+          ),
+        ),
+      ),
+      _buildListTile(
+        icon: Icons.local_shipping,
+        title: 'Pedidos',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ListadoPedidos()),
+          );
+        },
+      ),
+      const ListTile(
+        leading: Icon(Icons.favorite),
+        title: Text('Favoritos'),
+      ),
+      const ListTile(
+        leading: Icon(Icons.shopping_cart),
+        title: Text('Carrito'),
+      ),
+      ListTile(
+        leading: Icon(Icons.dark_mode),
+        title: Text(modeloUsuario.isDarkMode ? 'Modo Claro' : 'Modo Oscuro'),
+        onTap: () {
+          modeloUsuario.toggleDarkMode();
+        },
+      ),
+      const SizedBox(
+        height: 250,
+      ),
+      ListTile(
+        leading: const Icon(Icons.logout),
+        title: const Text("Cerrar sesión"),
+        onTap: () {
+          modeloUsuario.cerrarSesion();
+          Navigator.of(context).pop();
+        },
+      ),
+    ];
+    // Si el usuario es 'admin', agregar funciones específicas del administrador
+    if (modeloUsuario.esAdmin) {
+      settings.insert(
+        5, // Índice donde quieres insertar las funciones del administrador
+        _buildListTile(
+          icon: Icons.settings,
+          title: 'Administración',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AdminScaffold()),
+            );
+          },
+        ),
+      );
+    }
+
+    return settings;
   }
 
   Widget _buildListTile({

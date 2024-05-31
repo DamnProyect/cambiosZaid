@@ -21,6 +21,11 @@ class ModeloUsuario extends ChangeNotifier {
   // Verifica si se ha iniciado sesión
   bool get inicioSesion => _usuarioActual != null;
 
+  // Indicador de modo oscuro
+  bool _isDarkMode = false;
+
+  bool get isDarkMode => _isDarkMode;
+
   // Constructor
   ModeloUsuario() {
     _loadFavorites();
@@ -92,17 +97,18 @@ class ModeloUsuario extends ChangeNotifier {
 
   String _nombre = "";
 
-  bool esAdmin = false;
+  bool _esAdmin = false;
+  bool get esAdmin => _esAdmin;
+
+  void loginAdmin(bool esAdmin) {
+    _esAdmin = esAdmin;
+    notifyListeners();
+  }
 
   String get nombre => _nombre;
 
   void cambiarNombre(String nombreNuevo) {
     _nombre = nombreNuevo;
-    notifyListeners();
-  }
-
-  void loginAdmin(bool esAdminis) {
-    esAdmin = esAdminis;
     notifyListeners();
   }
 
@@ -134,6 +140,11 @@ class ModeloUsuario extends ChangeNotifier {
     final usuario = await _databaseHelper.getUsuario(username, password);
     if (usuario != null) {
       _usuarioActual = usuario;
+      if (username == 'admin' && password == 'admin') {
+        loginAdmin(true);
+      } else {
+        loginAdmin(false);
+      }
       await _loadFavorites();
       await _loadCarrito();
       notifyListeners();
@@ -145,6 +156,7 @@ class ModeloUsuario extends ChangeNotifier {
 
   void cerrarSesion() {
     _usuarioActual = null;
+    _esAdmin = false;
     favorites.clear();
     carrito.clear();
     notifyListeners();
@@ -158,5 +170,11 @@ class ModeloUsuario extends ChangeNotifier {
           _usuarioActual!.id);
       await _loadCarrito();
     }
+  }
+
+  // Método para cambiar entre modo oscuro y claro
+  void toggleDarkMode() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
   }
 }

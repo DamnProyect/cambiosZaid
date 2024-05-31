@@ -124,8 +124,7 @@ class _CarritoPageState extends State<CarritoPage> {
                 Navigator.of(context).pop();
               },
               style: TextButton.styleFrom(
-                backgroundColor: Colors.grey,
-                primary: Colors.white,
+                foregroundColor: Colors.white, backgroundColor: Colors.grey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -191,8 +190,7 @@ class _CarritoPageState extends State<CarritoPage> {
                 );
               },
               style: TextButton.styleFrom(
-                backgroundColor: Colors.teal,
-                primary: Colors.white,
+                foregroundColor: Colors.white, backgroundColor: Colors.teal,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -358,7 +356,7 @@ class _CarritoPageState extends State<CarritoPage> {
                   mostrarMensajeCompra(context, total);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.teal,
+                  backgroundColor: Colors.teal,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
