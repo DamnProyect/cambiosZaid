@@ -59,13 +59,8 @@ class ProductScreen extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              child: Icon(
-                                Icons.arrow_back_ios_new,
-                                size: 22,
-                                color: modeloUsuario.isDarkMode
-                                    ? Colors.black
-                                    : Colors.white,
-                              ),
+                              child: Icon(Icons.arrow_back_ios_new,
+                                  size: 22, color: Colors.black),
                             ),
                           ),
 
@@ -168,6 +163,8 @@ class ProductScreen extends StatelessWidget {
                                   producto = producto.copyWith(id: id);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
+                                      duration: Duration(
+                                          seconds: 1, microseconds: 30),
                                       content: Text(
                                           'Producto añadido al carrito correctamente'),
                                     ),

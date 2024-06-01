@@ -1,7 +1,10 @@
 // ignore: file_names
 // ignore: file_names
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';
@@ -18,6 +21,20 @@ class _CarritoPageState extends State<CarritoPage> {
   List<ProductoModel> productos = [];
   final dao = ProductoDao();
   int totalInsert = 1;
+
+  void sendWhatsApp(
+      {required String phoneNumber, required String message}) async {
+//    String url =
+    //'https://whatsapp://send?phone=$phoneNumber&text=${Uri.encodeComponent(message)}';
+    String url =
+        "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message";
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print("Problema al abrir WhatsApp");
+    }
+  }
 
   @override
   void initState() {
@@ -124,7 +141,8 @@ class _CarritoPageState extends State<CarritoPage> {
                 Navigator.of(context).pop();
               },
               style: TextButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.grey,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.grey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -152,6 +170,7 @@ class _CarritoPageState extends State<CarritoPage> {
                     Provider.of<ModeloUsuario>(context, listen: false)
                         .usuarioActual!
                         .id);
+
                 setState(() {}); // Actualiza la UI
                 Navigator.of(context).pop(); // Cierra el diálogo actual
 
@@ -159,6 +178,9 @@ class _CarritoPageState extends State<CarritoPage> {
                   context,
                   MaterialPageRoute(builder: (context) => ListadoPedidos()),
                 );
+
+                sendWhatsApp(
+                    phoneNumber: "34692054838", message: "mensaje prueba");
 
                 // Muestra el mensaje de confirmación de compra
                 showDialog(
@@ -190,7 +212,8 @@ class _CarritoPageState extends State<CarritoPage> {
                 );
               },
               style: TextButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.teal,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:widgets_basicos/screens/home_pageScreen.dart';
 import 'package:widgets_basicos/models/carga_Datos.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // Temas de la aplicación, texto, colores etc
           theme: ThemeData(
-            // Texto de la app
+            //Tema claro
 
             // Modo oscuro o claro según el estado
             brightness:
