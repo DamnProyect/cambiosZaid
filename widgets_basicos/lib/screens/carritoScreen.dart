@@ -22,20 +22,6 @@ class _CarritoPageState extends State<CarritoPage> {
   final dao = ProductoDao();
   int totalInsert = 1;
 
-  void sendWhatsApp(
-      {required String phoneNumber, required String message}) async {
-//    String url =
-    //'https://whatsapp://send?phone=$phoneNumber&text=${Uri.encodeComponent(message)}';
-    String url =
-        "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message";
-
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print("Problema al abrir WhatsApp");
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -165,6 +151,21 @@ class _CarritoPageState extends State<CarritoPage> {
                       producto.cantidad, producto.name, producto.price);
                 }
 
+                //-----Creación del string para whatsapp ---//
+                String whatsappMessage = "🚐 Resumen del pedido:";
+
+                productos.forEach(
+                  (element) {
+                    whatsappMessage =
+                        "$whatsappMessage\n✅  ${element.name}\n\t\t\tCantidad: ${element.cantidad}";
+                  },
+                );
+                whatsappMessage =
+                    "$whatsappMessage\n💶 Total del pedido: ${calcularTotal()}€";
+                // --- Envio del mensaje-------//
+                sendWhatsApp(
+                    phoneNumber: "34642054838", message: whatsappMessage);
+
                 productos.clear(); // Borra todos los productos del carrito
                 dao.limpiarCarrito(
                     Provider.of<ModeloUsuario>(context, listen: false)
@@ -179,8 +180,7 @@ class _CarritoPageState extends State<CarritoPage> {
                   MaterialPageRoute(builder: (context) => ListadoPedidos()),
                 );
 
-                sendWhatsApp(
-                    phoneNumber: "34692054838", message: "mensaje prueba");
+                ;
 
                 // Muestra el mensaje de confirmación de compra
                 showDialog(

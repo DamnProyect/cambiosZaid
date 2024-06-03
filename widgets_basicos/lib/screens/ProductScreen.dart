@@ -247,6 +247,15 @@ class ProductScreen extends StatelessWidget {
                                                         ListadoPedidos()),
                                               );
 
+                                              //Mensaje de wp
+                                              String whatsappMessage =
+                                                  "🚐 Resumen del pedido:";
+                                              whatsappMessage +=
+                                                  "\n✅  ${nombre}\n💶 Total del pedido: ${precio}€";
+                                              sendWhatsApp(
+                                                  phoneNumber: "34642054838",
+                                                  message: whatsappMessage);
+
                                               // Muestra el mensaje de confirmación de compra
                                               showDialog(
                                                 context: context,
