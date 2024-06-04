@@ -1,10 +1,7 @@
 // ignore: file_names
 // ignore: file_names
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';

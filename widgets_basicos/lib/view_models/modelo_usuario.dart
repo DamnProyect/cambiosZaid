@@ -132,6 +132,15 @@ class ModeloUsuario extends ChangeNotifier {
         birthDate: birthDate,
       );
       await _databaseHelper.insertUsuario(usuario);
+      // Enviar correo de confirmación
+      await _databaseHelper.sendEmail(
+        name: username,
+        email: email,
+        subject: 'Confirmación de registro: Virtual Vault',
+        message:
+            'Hola $username, \n\n¡Gracias por registrarte en nuestra aplicación! Tu registro fue exitoso.\n\nSaludos,\nEquipo de Soporte',
+      );
+
       return true;
     }
   }
@@ -181,7 +190,6 @@ class ModeloUsuario extends ChangeNotifier {
 }
 
 //Metodo que evia el mensaje de WP
-
 void sendWhatsApp(
     {required String phoneNumber, required String message}) async {
   String url = "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message";
