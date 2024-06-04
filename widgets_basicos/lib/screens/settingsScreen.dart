@@ -82,7 +82,7 @@ class settingScreen extends StatelessWidget {
         title: const Text("Cerrar sesión"),
         onTap: () {
           modeloUsuario.cerrarSesion();
-          modeloUsuario.toggleDarkMode();
+          modeloUsuario.activarModoClaro();
           Navigator.of(context).pop();
         },
       ),

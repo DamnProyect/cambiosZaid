@@ -187,6 +187,12 @@ class ModeloUsuario extends ChangeNotifier {
     _isDarkMode = !_isDarkMode;
     notifyListeners();
   }
+
+  // Método para cambiar entre modo oscuro y claro
+  void activarModoClaro() {
+    _isDarkMode = false;
+    notifyListeners();
+  }
 }
 
 //Metodo que evia el mensaje de WP

@@ -1,7 +1,10 @@
 // ignore: file_names
 // ignore: file_names
+// ignore_for_file: empty_statements
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
 import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';
@@ -17,7 +20,10 @@ class CarritoPage extends StatefulWidget {
 class _CarritoPageState extends State<CarritoPage> {
   List<ProductoModel> productos = [];
   final dao = ProductoDao();
+  final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
   int totalInsert = 1;
+  String nombreUsuario = "";
+  String correoUsuario = "";
 
   @override
   void initState() {
@@ -148,9 +154,28 @@ class _CarritoPageState extends State<CarritoPage> {
                       producto.cantidad, producto.name, producto.price);
                 }
 
+                //----Envio de email de confirmación del pedido ---//
+
+                correoUsuario = await dao.mostrarCorreo(usuarioId);
+                nombreUsuario = await dao.mostrarNombreUsuario(usuarioId);
+
+                String mensajeCorreo = " ";
+                productos.forEach(
+                  (element) {
+                    mensajeCorreo =
+                        "$mensajeCorreo\n✅  ${element.name}\n\t\t\tCantidad: ${element.cantidad}";
+                  },
+                );
+                await _databaseHelper.sendEmail(
+                  name: nombreUsuario,
+                  email: correoUsuario,
+                  subject: 'Confirmación de pedido: Virtual Vault',
+                  message:
+                      'Hola $nombreUsuario, \n\n¡Gracias por realizar tu pedido en nuestra aplicación ! $mensajeCorreo \n 💶 Total del pedido: ${calcularTotal()}€  \n\nSaludos,\nEquipo de Soporte',
+                );
+
                 //-----Creación del string para whatsapp ---//
                 String whatsappMessage = "🚐 Resumen del pedido:";
-
                 productos.forEach(
                   (element) {
                     whatsappMessage =
@@ -160,8 +185,8 @@ class _CarritoPageState extends State<CarritoPage> {
                 whatsappMessage =
                     "$whatsappMessage\n💶 Total del pedido: ${calcularTotal()}€";
                 // --- Envio del mensaje-------//
-                sendWhatsApp(
-                    phoneNumber: "34642054838", message: whatsappMessage);
+                /*sendWhatsApp(
+                    phoneNumber: "34642054838", message: whatsappMessage);*/
 
                 productos.clear(); // Borra todos los productos del carrito
                 dao.limpiarCarrito(
@@ -176,8 +201,6 @@ class _CarritoPageState extends State<CarritoPage> {
                   context,
                   MaterialPageRoute(builder: (context) => ListadoPedidos()),
                 );
-
-                ;
 
                 // Muestra el mensaje de confirmación de compra
                 showDialog(

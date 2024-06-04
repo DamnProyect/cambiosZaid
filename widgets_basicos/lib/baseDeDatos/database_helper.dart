@@ -182,8 +182,8 @@ class DatabaseHelper {
     required String subject,
     required String message,
   }) async {
-    final serviceId = 'service_smhgg0n';
-    final templateId = 'template_12n1ox8';
+    final serviceId = 'service_3nkbevr';
+    final templateId = 'template_gxrf0s9';
     final userId = 'eS70l0Zazvj-2Thi9';
 
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
@@ -201,7 +201,7 @@ class DatabaseHelper {
           'to_name': name,
           'to_email': email,
           'user_email':
-              'kikoamarillo94@gmail.com', // Correo de ADMIN por configurar
+              'virtual.vault11@gmail.com', // Correo de ADMIN por configurar
           'user_subject': subject,
           'user_message': message,
           'user_name': 'Virtual Vault',
