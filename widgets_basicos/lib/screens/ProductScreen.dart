@@ -254,10 +254,15 @@ class ProductScreen extends StatelessWidget {
                                               await _databaseHelper.sendEmail(
                                                 name: nombreUsuario,
                                                 email: correoUsuario,
-                                                subject:
-                                                    'Confirmación de pedido: Virtual Vault',
-                                                message:
-                                                    'Hola $nombreUsuario, \n\n¡Gracias por realizar tu pedido en nuestra aplicación ! $mensajeCorreo \n 💶 Total del pedido: $precio€  \n\nSaludos,\nEquipo de Soporte',
+                                                subject: 'Confirmación de pedido: Virtual Vault',
+                                                message: 'Hola $nombreUsuario, \n ----------------------------------------------------------------------\n¡Gracias por realizar tu pedido en nuestra aplicación ! $mensajeCorreo \n ---------------------------------------------------------------------- \n 💶 Total del pedido: $precio€ \n ---------------------------------------------------------------------- \nSaludos,\nEquipo de Soporte',
+                                              );
+
+                                              await _databaseHelper.sendEmail(
+                                                name: nombreUsuario,
+                                                email: "virtual.vault11@gmail.com",
+                                                subject: 'Nuevo pedido realizado por $nombreUsuario',
+                                                message: 'Hola Admin, \n ---------------------------------------------------------------------- \n¡ Se ha realizado un pedido a nombre de $nombreUsuario ! $mensajeCorreo \n ---------------------------------------------------------------------- \n Correo del cliente: $correoUsuario \n\n Saludos. 😎',
                                               );
 
                                               //Cerrar la ventana.

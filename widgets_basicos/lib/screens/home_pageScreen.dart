@@ -82,11 +82,28 @@ class _HomePageState extends State<HomePage> {
                           )
                   ],
                   backgroundColor: Colors.black,
-                  title: Text(
-                    //nombre del usuario a modificar
-                    saludo + (modeloUsuario.usuarioActual?.username ?? ''),
-                    style: GoogleFonts.playfairDisplay(
-                        fontSize: 22, fontWeight: FontWeight.bold),
+                  title: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Image.asset(
+                          "assets/images/LogoApp.png",
+                          fit: BoxFit.fill,
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        //nombre del usuario a modificar
+                        saludo + (modeloUsuario.usuarioActual?.username ?? ''),
+                        style: GoogleFonts.playfairDisplay(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   foregroundColor: Colors.white,
                 ),

@@ -64,7 +64,7 @@ class DatabaseHelper {
         await db.insert('usuarios', {
           'username': 'admin',
           'password': 'admin',
-          'email': 'admin@example.com',
+          'email': 'virtual.vault11@gmail.com',
           'phoneNumber': '987654321',
           'birthDate': '1990-01-01'
         });
