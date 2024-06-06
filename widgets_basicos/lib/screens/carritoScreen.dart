@@ -182,20 +182,6 @@ class _CarritoPageState extends State<CarritoPage> {
                       'Hola Admin, \n ---------------------------------------------------------------------- \n¡ Se ha realizado un pedido a nombre de $nombreUsuario ! $mensajeCorreo \n ---------------------------------------------------------------------- \n Correo del cliente: $correoUsuario \n\n Saludos. 😎',
                 );
 
-                //-----Creación del string para whatsapp ---//
-                String whatsappMessage = "🚐 Resumen del pedido:";
-                productos.forEach(
-                  (element) {
-                    whatsappMessage =
-                        "$whatsappMessage\n✅  ${element.name}\n\t\t\tCantidad: ${element.cantidad}";
-                  },
-                );
-                whatsappMessage =
-                    "$whatsappMessage\n💶 Total del pedido: ${calcularTotal()}€";
-                // --- Envio del mensaje-------//
-                /*sendWhatsApp(
-                    phoneNumber: "34642054838", message: whatsappMessage);*/
-
                 productos.clear(); // Borra todos los productos del carrito
                 dao.limpiarCarrito(
                     Provider.of<ModeloUsuario>(context, listen: false)

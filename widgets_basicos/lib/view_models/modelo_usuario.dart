@@ -206,3 +206,19 @@ void sendWhatsApp(
     print("Problema al abrir WhatsApp");
   }
 }
+
+void compartirWhatsApp(
+    {required String nombreProducto,
+    required int precio,
+    required String desc}) async {
+  String mensaje =
+      "👋 ¡Hola! Encontré el juego $nombreProducto por $precio€ en la app 📲 Virtual Vault. Dale un vistazo descargándote su app. ¡Saludos! 😏";
+
+  String url = "https://api.whatsapp.com/send/?text=$mensaje";
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    print("Problema al abrir WhatsApp");
+  }
+}

@@ -85,13 +85,13 @@ class _HomePageState extends State<HomePage> {
                   title: Row(
                     children: [
                       Container(
+                        height: 50,
+                        width: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset(
-                          "assets/images/LogoApp.png",
-                          fit: BoxFit.fill,
-                          height: 50,
-                          width: 50,
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/LogoApp.png"),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(50),
                         ),
                       ),
                       SizedBox(

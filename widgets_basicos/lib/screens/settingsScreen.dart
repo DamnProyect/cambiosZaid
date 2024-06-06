@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:widgets_basicos/models/carga_Datos.dart';
 import 'package:widgets_basicos/screens/carritoScreen.dart';
 import 'package:widgets_basicos/screens/favoritesScreen.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';
@@ -72,6 +73,23 @@ class settingScreen extends StatelessWidget {
         title: Text(modeloUsuario.isDarkMode ? 'Modo Claro' : 'Modo Oscuro'),
         onTap: () {
           modeloUsuario.toggleDarkMode();
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.help),
+        title: Text("Contactanos"),
+        onTap: () async {
+          //Variable que almacena el Id del usuario
+          final usuarioId = Provider.of<ModeloUsuario>(context, listen: false)
+              .usuarioActual!
+              .id;
+          String correoUsuario = await dao.mostrarCorreo(usuarioId);
+          String nombreUsuario = await dao.mostrarNombreUsuario(usuarioId);
+          //-----Creación del string para whatsapp ---//
+          String whatsappMessage =
+              "🚐 Solicitud de contacto por el usuario: $nombreUsuario. \n📨 Correo de contacto $correoUsuario\n 🧐 Indique el motivo de su consulta: ";
+
+          sendWhatsApp(phoneNumber: "34642054838", message: whatsappMessage);
         },
       ),
       const SizedBox(
