@@ -27,6 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   final ProductoDao dao = ProductoDao();
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+  bool estaCargado = true;
 
   @override
   Widget build(BuildContext context) {
@@ -276,89 +277,120 @@ class _ProductScreenState extends State<ProductScreen> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              final usuarioId =
-                                                  Provider.of<ModeloUsuario>(
-                                                          context,
-                                                          listen: false)
-                                                      .usuarioActual!
-                                                      .id;
-                                              // Insertar el nuevo pedido en la tabla Pedidos
-                                              final pedidoId =
-                                                  await dao.insertarPedido(
-                                                      usuarioId,
-                                                      DateTime.now(),
-                                                      widget.precio);
-
-                                              // Insertar los detalles del pedido en la tabla DetallesPedido
-                                              await dao.insertarDetallePedido(
-                                                  pedidoId,
-                                                  Random().nextInt(100) + 1,
-                                                  1,
-                                                  widget.nombre,
-                                                  widget.precio);
-
-                                              //----Envio de email de confirmación del pedido ---//
-                                              String correoUsuario = await dao
-                                                  .mostrarCorreo(usuarioId);
-                                              String nombreUsuario = await dao
-                                                  .mostrarNombreUsuario(
-                                                      usuarioId);
-                                              String mensajeCorreo =
-                                                  "✅ ${widget.nombre}";
-
-                                              await _databaseHelper.sendEmail(
-                                                name: nombreUsuario,
-                                                email: correoUsuario,
-                                                subject:
-                                                    'Confirmación de pedido: Virtual Vault',
-                                                message:
-                                                    'Hola $nombreUsuario, \n\n¡Gracias por realizar tu pedido en nuestra aplicación !/n/n $mensajeCorreo \n/n 💶 Total del pedido: ${widget.precio}€  \n\nSaludos,\nEquipo de Soporte',
-                                              );
-
-                                              //Cerrar la ventana.
-                                              Navigator.of(context).pop();
-
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ListadoPedidos()),
-                                              );
-
-                                              // Muestra el mensaje de confirmación de compra
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: const Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.check_circle,
-                                                          color: Colors.green,
-                                                          size: 28.0,
-                                                        ),
-                                                        SizedBox(width: 10),
-                                                        Text(
-                                                            'Pedido Realizado'),
-                                                      ],
-                                                    ),
-                                                    content: const Text(
-                                                        'El pedido se ha realizado correctamente.'),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: const Text(
-                                                            'Aceptar'),
+                                              if (estaCargado) {
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return const AlertDialog(
+                                                      title: Row(
+                                                        children: [
+                                                          CircularProgressIndicator(),
+                                                          SizedBox(width: 20),
+                                                          Text(
+                                                              "Realizando pedido")
+                                                        ],
                                                       ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
+                                                      content: Text(
+                                                          "Por favor espera mientras se procesa"),
+                                                    );
+                                                  },
+                                                );
+                                                final usuarioId =
+                                                    Provider.of<ModeloUsuario>(
+                                                            context,
+                                                            listen: false)
+                                                        .usuarioActual!
+                                                        .id;
+                                                // Insertar el nuevo pedido en la tabla Pedidos
+                                                final pedidoId =
+                                                    await dao.insertarPedido(
+                                                        usuarioId,
+                                                        DateTime.now(),
+                                                        widget.precio);
+
+                                                // Insertar los detalles del pedido en la tabla DetallesPedido
+                                                await dao.insertarDetallePedido(
+                                                    pedidoId,
+                                                    Random().nextInt(100) + 1,
+                                                    1,
+                                                    widget.nombre,
+                                                    widget.precio);
+
+                                                //----Envio de email de confirmación del pedido ---//
+                                                String correoUsuario = await dao
+                                                    .mostrarCorreo(usuarioId);
+                                                String nombreUsuario = await dao
+                                                    .mostrarNombreUsuario(
+                                                        usuarioId);
+                                                String mensajeCorreo =
+                                                    "✅ ${widget.nombre}";
+
+                                                await _databaseHelper.sendEmail(
+                                                  name: nombreUsuario,
+                                                  email: correoUsuario,
+                                                  subject:
+                                                      'Confirmación de pedido: Virtual Vault',
+                                                  message:
+                                                      'Hola $nombreUsuario, \n\n¡Gracias por realizar tu pedido en nuestra aplicación !/n/n $mensajeCorreo \n/n 💶 Total del pedido: ${widget.precio}€  \n\nSaludos,\nEquipo de Soporte',
+                                                );
+
+                                                Navigator.of(context)
+                                                    .pop(); // Cierra el progres indicator bar
+                                                Navigator.of(context)
+                                                    .pop(); //Cerrar la ventana de confirmacion
+                                                // ignore: use_build_context_synchronously
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ListadoPedidos()),
+                                                );
+
+                                                // Muestra el mensaje de confirmación de compra
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: const Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.check_circle,
+                                                            color: Colors.green,
+                                                            size: 28.0,
+                                                          ),
+                                                          SizedBox(width: 10),
+                                                          Text(
+                                                              'Pedido Realizado'),
+                                                        ],
+                                                      ),
+                                                      content: const Text(
+                                                          'El pedido se ha realizado correctamente.'),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Aceptar'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                //Cierra el bloqueo de la pantalla
+                                                setState(
+                                                  () {
+                                                    estaCargado = false;
+                                                  },
+                                                );
+                                                //Vuelve a colocar el alert de carga para la proxima compra
+                                                estaCargado = true;
+                                              }
                                             },
                                             child: const Text('Confirmar'),
                                           ),
