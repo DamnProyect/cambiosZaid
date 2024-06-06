@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:widgets_basicos/models/pedido.dart';
-import 'package:widgets_basicos/models/producto_pedido.dart';
+import 'package:widgets_basicos/models/pedidosModel.dart';
+import 'package:widgets_basicos/models/productoPedidoModel.dart';
 import 'usuarioModel.dart';
 import 'package:http/http.dart' as http;
 

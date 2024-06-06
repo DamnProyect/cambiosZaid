@@ -1,4 +1,4 @@
-import 'package:widgets_basicos/models/producto_pedido.dart';
+import 'package:widgets_basicos/models/productoPedidoModel.dart';
 
 class Pedido {
   final int id;

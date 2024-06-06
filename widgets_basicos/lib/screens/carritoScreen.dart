@@ -4,11 +4,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
+import 'package:widgets_basicos/baseDeDatos/databaseHelper.dart';
+import 'package:widgets_basicos/baseDeDatos/productoDao.dart';
+import 'package:widgets_basicos/baseDeDatos/productoModel.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';
-import 'package:widgets_basicos/view_models/modelo_usuario.dart';
+import 'package:widgets_basicos/view_models/modeloUsuario.dart';
 
 class CarritoPage extends StatefulWidget {
   const CarritoPage({super.key});
@@ -56,15 +56,15 @@ class _CarritoPageState extends State<CarritoPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          title: Row(
+          title: const Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.help_outline, // Icono de duda
                 color: Colors.orange,
                 size: 28.0,
               ),
-              const SizedBox(width: 10),
-              const Text('Confirmación'),
+              SizedBox(width: 10),
+              Text('Confirmación'),
             ],
           ),
           content: SizedBox(
@@ -201,7 +201,7 @@ class _CarritoPageState extends State<CarritoPage> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Row(
+                      title: const Row(
                         children: [
                           Icon(
                             Icons.check_circle, // Icono de verificación
@@ -212,13 +212,14 @@ class _CarritoPageState extends State<CarritoPage> {
                           Text('Pedido Realizado'),
                         ],
                       ),
-                      content: Text('El pedido se ha realizado correctamente.'),
+                      content: const Text(
+                          'El pedido se ha realizado correctamente.'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('Aceptar'),
+                          child: const Text('Aceptar'),
                         ),
                       ],
                     );

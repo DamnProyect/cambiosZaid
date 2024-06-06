@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
-import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
-import 'package:widgets_basicos/models/pedido.dart';
-import 'package:widgets_basicos/models/producto_pedido.dart';
+import 'package:widgets_basicos/baseDeDatos/databaseHelper.dart';
+import 'package:widgets_basicos/baseDeDatos/productoModel.dart';
+import 'package:widgets_basicos/models/pedidosModel.dart';
+import 'package:widgets_basicos/models/productoPedidoModel.dart';
 import 'package:widgets_basicos/models/productsModel.dart';
 
 class ProductoDao {

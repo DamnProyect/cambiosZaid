@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
-import 'package:widgets_basicos/models/Favoritos.dart';
+import 'package:widgets_basicos/baseDeDatos/databaseHelper.dart';
+import 'package:widgets_basicos/baseDeDatos/productoDao.dart';
+import 'package:widgets_basicos/baseDeDatos/productoModel.dart';
+import 'package:widgets_basicos/models/favoritesModel.dart';
 import 'package:widgets_basicos/screens/pedidosScreen.dart';
-import 'package:widgets_basicos/view_models/modelo_usuario.dart';
+import 'package:widgets_basicos/view_models/modeloUsuario.dart';
 
 class ProductScreen extends StatefulWidget {
   final String image;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:widgets_basicos/models/Favoritos.dart';
-import 'package:widgets_basicos/models/carga_Datos.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_dao.dart';
-import 'package:widgets_basicos/baseDeDatos/database_helper.dart';
+import 'package:widgets_basicos/models/favoritesModel.dart';
+import 'package:widgets_basicos/models/cargarDatos.dart';
+import 'package:widgets_basicos/baseDeDatos/productoDao.dart';
+import 'package:widgets_basicos/baseDeDatos/databaseHelper.dart';
 import 'package:widgets_basicos/baseDeDatos/usuarioModel.dart';
-import 'package:widgets_basicos/baseDeDatos/producto_model.dart';
+import 'package:widgets_basicos/baseDeDatos/productoModel.dart';
 
 class ModeloUsuario extends ChangeNotifier {
   // Listado de favoritos y carrito
